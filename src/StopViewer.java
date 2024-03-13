@@ -9,8 +9,7 @@ public class StopViewer {
     }
 
     // Method to prompt user for coordinates and print the 10 closest bus stops
-    public void promptAndPrintClosestBusStops() {
-        Scanner scanner = new Scanner(System.in);
+    public void promptAndPrintClosestBusStops(Scanner scanner) {
         double x = 0.0, y = 0.0;
         boolean validInput = false;
     
@@ -35,7 +34,6 @@ public class StopViewer {
     
         System.out.println("Closest Bus Stops to Coordinates (" + x + ", " + y + "):");
         printClosestBusStops(x, y);
-        scanner.close();
     }
     
 

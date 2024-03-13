@@ -15,7 +15,7 @@ public class mainMenu {
         while (choice != 'E') {
             System.out.println("Welcome to the Bus Service Menu:");
             System.out.println("C - Closest Bus Stops");
-            System.out.println("P - Plan a Trip");
+            System.out.println("P - Plan a Trip (Not implemented yet)");
             System.out.println("E - Exit");
             System.out.print("Enter your choice: ");
             
@@ -28,7 +28,7 @@ public class mainMenu {
 
             switch (choice) {
                 case 'C':
-                    stopViewer.promptAndPrintClosestBusStops();
+                    stopViewer.promptAndPrintClosestBusStops(scanner);
                     break;
                 case 'P':
                     // Call the plan trip function here
