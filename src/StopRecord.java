@@ -1,3 +1,7 @@
+/*This class will create a hashmap that will store x, y, coordinates and the name
+ * of each stop and provide a string that will format each one  
+ * approperitely
+  */
 import java.util.HashMap;
 import java.util.StringTokenizer;
 

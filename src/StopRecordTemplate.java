@@ -1,3 +1,4 @@
+/*Used to read our file/data */
 interface StopRecordTemplate {
     public static final String FILE_NAME = "data/stops.csv";
     public static final String DELIMITER = ",";

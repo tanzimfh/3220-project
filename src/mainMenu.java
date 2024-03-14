@@ -1,3 +1,7 @@
+/*This class will create a menu interface for the user to navigate
+ * will prompt user to enter selection and based on selection
+ * it will call a function that is related to the respective function
+ */
 import java.util.Scanner;
 
 public class mainMenu {

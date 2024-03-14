@@ -1,3 +1,6 @@
+/*this class will read the file that contains our data
+ * and record each line as a record and add it to our array list
+ */
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;

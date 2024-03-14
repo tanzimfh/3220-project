@@ -1,3 +1,7 @@
+/*This class will allow the the user to enter their
+ * coordinates and will then compare the coordiantes with
+ * our data by utilzing the sortbydistance function
+ */
 import java.util.Scanner;
 
 public class StopViewer {
