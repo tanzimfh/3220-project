@@ -1,12 +1,24 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
-public class GraphicViewer extends JFrame {
+public class GraphicViewer extends JFrame implements StopRecordTemplate {
+    private StopRecordList stopRecordList;
+    private BufferedImage mapImage;
 
     public GraphicViewer() {
         super("Bus Stop Graphic Viewer");
+        stopRecordList = new StopRecordList();
+        try {
+            mapImage = ImageIO.read(new File("data/map.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void displayMenu() {
@@ -19,19 +31,17 @@ public class GraphicViewer extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                // Draw the map here
-                
+                if (mapImage != null)
+                    g.drawImage(mapImage, 0, 0, this);
             }
         };
 
-        mapPanel.setPreferredSize(new Dimension(400, 300));
+        mapPanel.setPreferredSize(new Dimension(mapImage.getWidth(), mapImage.getHeight()));
         mapPanel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int x = e.getX();
-                int y = e.getY();
                 // Call a method to handle clicked coordinates and display closest bus stops
-                handleMapClicks(x, y);
+                handleMapClick(e.getX(), e.getY());
             }
 
             @Override
@@ -66,8 +76,10 @@ public class GraphicViewer extends JFrame {
         setVisible(true);
     }
 
-    private void handleMapClicks(int x, int y) {
-        // Implement the logic to handle map clicks and display closest bus stops here
-        // You can utilize the methods from consoleViewer class to find the closest bus stops
+    private void handleMapClick(int mouse_x, int mouse_y) {
+        // convert mouse_x and mouse_y to latitude and longitude
+        double x = TOP_LEFT_X + DELTA_X * mouse_x / mapImage.getWidth();
+        double y = TOP_LEFT_Y - DELTA_Y * mouse_y / mapImage.getHeight();
+        stopRecordList.sortByDistance(x, y);
     }
 }

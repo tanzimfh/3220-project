@@ -8,4 +8,11 @@ interface StopRecordTemplate {
             "ROUTE1DIRE", "ROUTE2DIRE", "ROUTE3DIRE", "ROUTE4DIRE", "ROUTE5DIRE", "ROUTE6", "ROUTE6DIRE" };
     public static final int XCOORD_INDEX = 0, YCOORD_INDEX = 1;
     public static final int STREET_ON_INDEX = 4, STREET_AT_INDEX = 5;
+
+    public static final double TOP_LEFT_Y = 42.346362;
+    public static final double TOP_LEFT_X = -83.154947;
+    public static final double BOT_RIGHT_Y = 42.194410;
+    public static final double BOT_RIGHT_X = -82.794195;
+    public static final double DELTA_Y = TOP_LEFT_Y - BOT_RIGHT_Y;
+    public static final double DELTA_X = BOT_RIGHT_X - TOP_LEFT_X;
 }

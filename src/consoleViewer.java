@@ -11,7 +11,6 @@ public class ConsoleViewer {
     public ConsoleViewer() {
         scanner = new Scanner(System.in); // Initialize Scanner object
         stopRecordList = new StopRecordList(); // Initialize StopRecordList object
-        stopRecordList.loadRecords(); // Load records when the mainMenu is initialized
     }
 
     public void displayMenu() {

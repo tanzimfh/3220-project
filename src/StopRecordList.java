@@ -10,6 +10,7 @@ public class StopRecordList implements StopRecordTemplate {
 
     public StopRecordList() {
         recordList = new ArrayList<>();
+        loadRecords();
     }
 
     public StopRecord get(int i) {
