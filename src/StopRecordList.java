@@ -38,11 +38,11 @@ public class StopRecordList implements StopRecordTemplate {
         });
     }
 
-    public void printFirst(int n) {
-        System.out.printf("%-15s %-15s %-45s\n", "XCoord", "YCoord", "Location");
-        
-        for (int i = 0; i < n; i++) {
-            System.out.println(recordList.get(i));
-        }
+    public StopRecord[] getFirst(int n) {
+        n = Math.min(Math.max(n, 0), recordList.size());
+        StopRecord[] records = new StopRecord[n];
+        for (int i = 0; i < n; i++)
+            records[i] = recordList.get(i);
+        return records;
     }
 }
