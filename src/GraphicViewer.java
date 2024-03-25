@@ -10,20 +10,21 @@ import java.io.IOException;
 public class GraphicViewer extends JFrame implements StopRecordTemplate {
     private StopRecordList stopRecordList;
     private BufferedImage mapImage;
+    private StopRecord[] closestStops;
 
     public GraphicViewer() {
         super("Bus Stop Graphic Viewer");
         stopRecordList = new StopRecordList();
+        closestStops = new StopRecord[0];
         try {
             mapImage = ImageIO.read(new File("data/map.png"));
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(1);
         }
     }
 
     public void displayMenu() {
-        JLabel instructionsLabel = new JLabel("Click on the map to find the closest bus stops.");
-
         JButton closeButton = new JButton("Close");
         closeButton.addActionListener(e -> dispose());
 
@@ -31,8 +32,8 @@ public class GraphicViewer extends JFrame implements StopRecordTemplate {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                if (mapImage != null)
-                    g.drawImage(mapImage, 0, 0, this);
+                g.drawImage(mapImage, 0, 0, this);
+                drawClosestStops(g);
             }
         };
 
@@ -42,6 +43,7 @@ public class GraphicViewer extends JFrame implements StopRecordTemplate {
             public void mouseClicked(MouseEvent e) {
                 // Call a method to handle clicked coordinates and display closest bus stops
                 handleMapClick(e.getX(), e.getY());
+                mapPanel.repaint();
             }
 
             @Override
@@ -65,7 +67,6 @@ public class GraphicViewer extends JFrame implements StopRecordTemplate {
         buttonPanel.add(closeButton);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(instructionsLabel, BorderLayout.NORTH);
         mainPanel.add(mapPanel, BorderLayout.CENTER);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -81,5 +82,16 @@ public class GraphicViewer extends JFrame implements StopRecordTemplate {
         double x = TOP_LEFT_X + DELTA_X * mouse_x / mapImage.getWidth();
         double y = TOP_LEFT_Y - DELTA_Y * mouse_y / mapImage.getHeight();
         stopRecordList.sortByDistance(x, y);
+        System.out.println("Closest bus stops to (" + x + ", " + y + "):");
+        closestStops = stopRecordList.getFirst(10);
+    }
+
+    private void drawClosestStops(Graphics g) {
+        g.setColor(Color.RED);
+        for (StopRecord record : closestStops) {
+            int x = (int) ((record.xCoord - TOP_LEFT_X) * mapImage.getWidth() / DELTA_X);
+            int y = (int) ((TOP_LEFT_Y - record.yCoord) * mapImage.getHeight() / DELTA_Y);
+            g.fillOval(x - 5, y - 5, 10, 10);
+        }
     }
 }

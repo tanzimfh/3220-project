@@ -11,8 +11,8 @@ interface StopRecordTemplate {
 
     public static final double TOP_LEFT_Y = 42.346362;
     public static final double TOP_LEFT_X = -83.154947;
-    public static final double BOT_RIGHT_Y = 42.194410;
-    public static final double BOT_RIGHT_X = -82.794195;
+    public static final double BOT_RIGHT_Y = 42.198410;
+    public static final double BOT_RIGHT_X = -82.792195;
     public static final double DELTA_Y = TOP_LEFT_Y - BOT_RIGHT_Y;
     public static final double DELTA_X = BOT_RIGHT_X - TOP_LEFT_X;
 }
