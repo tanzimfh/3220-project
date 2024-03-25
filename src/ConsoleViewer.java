@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class ConsoleViewer {
     private Scanner scanner; // Declare Scanner object
     private StopRecordList stopRecordList;
+    private int closest_num = 10;
 
     public ConsoleViewer() {
         scanner = new Scanner(System.in); // Initialize Scanner object
@@ -19,6 +20,7 @@ public class ConsoleViewer {
         while (choice != 'E') {
             System.out.println("Welcome to the Bus Service Menu:");
             System.out.println("C - Closest Bus Stops");
+            System.out.println("S - Set number of closest stops to display");
             System.out.println("P - Plan a Trip (Not implemented yet)");
             System.out.println("E - Exit");
             System.out.print("Enter your choice: ");
@@ -33,6 +35,9 @@ public class ConsoleViewer {
             switch (choice) {
                 case 'C':
                     closestStops();
+                    break;
+                case 'S':
+                    setClosestNum();
                     break;
                 case 'P':
                     // Call the plan trip function here
@@ -74,7 +79,32 @@ public class ConsoleViewer {
         System.out.println("Closest Bus Stops to Coordinates (" + x + ", " + y + "):");
         stopRecordList.sortByDistance(x, y); // Sort records by distance from the given coordinates
         System.out.printf("%-15s %-15s %-45s\n", "XCoord", "YCoord", "Location"); // Print table headers
-        for (StopRecord record : stopRecordList.getFirst(10))   // Print the first 10 records
+        for (StopRecord record : stopRecordList.getFirst(closest_num))
             System.out.println(record);
+    }
+
+    private void setClosestNum() {
+        int num = 0;
+        boolean validInput = false;
+    
+        while (!validInput) {
+            System.out.print("Enter the number of closest stops to display: ");
+            String inputLine = scanner.nextLine();
+    
+            try {
+                num = Integer.parseInt(inputLine);
+                if (num > 0) {
+                    validInput = true; // Proper format and parsing successful, break loop
+                } else {
+                    System.out.println("Invalid input. Please enter a positive integer.");
+                }
+            } catch (NumberFormatException e) {
+                // Input was not a valid integer
+                System.out.println("Invalid input. Please enter a positive integer.");
+            }
+        }
+
+        closest_num = num;
+        System.out.println("Number of closest stops to display set to " + num + ".");
     }
 }
