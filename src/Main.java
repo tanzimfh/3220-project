@@ -3,8 +3,11 @@
 */
 
 class Main {
+    private static final boolean console = true;
     public static void main(String[] args) {
-        //new ConsoleViewer().displayMenu();
-        new GraphicViewer().displayMenu();
+        if (console)
+            new ConsoleViewer();
+        else
+            new GraphicViewer();
     }
 }

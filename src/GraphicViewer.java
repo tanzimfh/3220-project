@@ -1,6 +1,8 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -11,22 +13,63 @@ public class GraphicViewer extends JFrame implements StopRecordTemplate {
     private StopRecordList stopRecordList;
     private BufferedImage mapImage;
     private StopRecord[] closestStops;
+    private int closest_num = 10;
+    private JLabel numLabel;
 
     public GraphicViewer() {
         super("Bus Stop Graphic Viewer");
         stopRecordList = new StopRecordList();
         closestStops = new StopRecord[0];
+        numLabel = new JLabel("Closest Stops: " + closest_num);
         try {
             mapImage = ImageIO.read(new File("data/map.png"));
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
         }
+        display();
     }
 
-    public void displayMenu() {
-        JButton closeButton = new JButton("Close");
-        closeButton.addActionListener(e -> dispose());
+    public void display() {
+        // Panel to hold the closest number controls
+        JPanel numPanel = new JPanel();
+        JButton tenMinusButton = new JButton("-10");
+        tenMinusButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closest_num = Math.max(1, closest_num - 10);
+                updateNumLabel();
+            }
+        });
+        JButton minusButton = new JButton("-1");
+        minusButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closest_num = Math.max(1, closest_num - 1);
+                updateNumLabel();
+            }
+        });
+        JButton plusButton = new JButton("+1");
+        plusButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closest_num++;
+                updateNumLabel();
+            }
+        });
+        JButton tenPlusButton = new JButton("+10");
+        tenPlusButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closest_num += 10;
+                updateNumLabel();
+            }
+        });
+        numPanel.add(tenMinusButton);
+        numPanel.add(minusButton);
+        numPanel.add(numLabel);
+        numPanel.add(plusButton);
+        numPanel.add(tenPlusButton);
 
         JPanel mapPanel = new JPanel() {
             @Override
@@ -63,12 +106,9 @@ public class GraphicViewer extends JFrame implements StopRecordTemplate {
             }
         });
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(closeButton);
-
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(mapPanel, BorderLayout.CENTER);
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        mainPanel.add(numPanel, BorderLayout.NORTH); // Add numPanel to the top
 
         add(mainPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,8 +122,7 @@ public class GraphicViewer extends JFrame implements StopRecordTemplate {
         double x = TOP_LEFT_X + DELTA_X * mouse_x / mapImage.getWidth();
         double y = TOP_LEFT_Y - DELTA_Y * mouse_y / mapImage.getHeight();
         stopRecordList.sortByDistance(x, y);
-        System.out.println("Closest bus stops to (" + x + ", " + y + "):");
-        closestStops = stopRecordList.getFirst(10);
+        closestStops = stopRecordList.getFirst(closest_num);
     }
 
     private void drawClosestStops(Graphics g) {
@@ -93,5 +132,13 @@ public class GraphicViewer extends JFrame implements StopRecordTemplate {
             int y = (int) ((TOP_LEFT_Y - record.yCoord) * mapImage.getHeight() / DELTA_Y);
             g.fillOval(x - 5, y - 5, 10, 10);
         }
+    }
+
+    private void updateNumLabel() {
+        numLabel.setText("Closest Stops: " + closest_num);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(GraphicViewer::new);
     }
 }

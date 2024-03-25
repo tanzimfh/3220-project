@@ -12,6 +12,7 @@ public class ConsoleViewer {
     public ConsoleViewer() {
         scanner = new Scanner(System.in); // Initialize Scanner object
         stopRecordList = new StopRecordList(); // Initialize StopRecordList object
+        displayMenu();
     }
 
     public void displayMenu() {
