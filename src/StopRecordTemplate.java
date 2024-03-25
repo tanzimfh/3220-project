@@ -7,5 +7,5 @@ interface StopRecordTemplate {
             "BENCH", "GARBAGE", "LATITUDE", "LONGITUDE", "PUBLIC_ID", "ROUTE1", "ROUTE2", "ROUTE3", "ROUTE4", "ROUTE5",
             "ROUTE1DIRE", "ROUTE2DIRE", "ROUTE3DIRE", "ROUTE4DIRE", "ROUTE5DIRE", "ROUTE6", "ROUTE6DIRE" };
     public static final int XCOORD_INDEX = 0, YCOORD_INDEX = 1;
-    public static final int STREE_ON_INDEX = 4, STREET_AT_INDEX = 5;
+    public static final int STREET_ON_INDEX = 4, STREET_AT_INDEX = 5;
 }

@@ -18,7 +18,7 @@ public class StopRecord implements StopRecordTemplate {
         }
         xCoord = Double.parseDouble(recordMap.get(FIELD_LABELS[XCOORD_INDEX]));
         yCoord = Double.parseDouble(recordMap.get(FIELD_LABELS[YCOORD_INDEX]));
-        location = recordMap.get(FIELD_LABELS[STREE_ON_INDEX]) + " at " + recordMap.get(FIELD_LABELS[STREET_AT_INDEX]);
+        location = recordMap.get(FIELD_LABELS[STREET_ON_INDEX]) + " at " + recordMap.get(FIELD_LABELS[STREET_AT_INDEX]);
     }
 
     public String toString(){

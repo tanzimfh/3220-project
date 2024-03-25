@@ -4,11 +4,11 @@
  */
 import java.util.Scanner;
 
-public class consoleViewer {
+public class ConsoleViewer {
     private Scanner scanner; // Declare Scanner object
     private StopRecordList stopRecordList;
 
-    public consoleViewer() {
+    public ConsoleViewer() {
         scanner = new Scanner(System.in); // Initialize Scanner object
         stopRecordList = new StopRecordList(); // Initialize StopRecordList object
         stopRecordList.loadRecords(); // Load records when the mainMenu is initialized

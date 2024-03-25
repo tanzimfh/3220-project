@@ -4,7 +4,7 @@
 
 class Main {
     public static void main(String[] args) {
-        new consoleViewer().displayMenu();
-        //new graphicViewer().displayMenu();
+        new ConsoleViewer().displayMenu();
+        //new GraphicViewer().displayMenu();
     }
 }
