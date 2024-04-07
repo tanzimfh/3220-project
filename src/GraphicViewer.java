@@ -9,6 +9,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * This class will create a graphical interface for the user to navigate.
+ * Will respond to user clicks on the map by displaying the closest bus stops.
+ * Allows the user to change the number of closest bus stops to display.
+ */
 public class GraphicViewer extends JFrame implements StopRecordTemplate {
     private StopRecordList stopRecordList;
     private BufferedImage mapImage;
@@ -16,6 +21,9 @@ public class GraphicViewer extends JFrame implements StopRecordTemplate {
     private int closest_num = 10;
     private JLabel numLabel;
 
+    /**
+     * Constructor that initializes member variables and shows the graphic viewer.
+     */
     public GraphicViewer() {
         super("Bus Stop Graphic Viewer");
         stopRecordList = new StopRecordList();
@@ -30,6 +38,9 @@ public class GraphicViewer extends JFrame implements StopRecordTemplate {
         display();
     }
 
+    /**
+     * Displays the graphic viewer with the map and buttons to edit number of closest stops.
+     */
     public void display() {
         // Panel to hold the closest number controls
         JPanel numPanel = new JPanel();
@@ -128,17 +139,13 @@ public class GraphicViewer extends JFrame implements StopRecordTemplate {
     private void drawClosestStops(Graphics g) {
         g.setColor(Color.RED);
         for (StopRecord record : closestStops) {
-            int x = (int) ((record.xCoord - TOP_LEFT_X) * mapImage.getWidth() / DELTA_X);
-            int y = (int) ((TOP_LEFT_Y - record.yCoord) * mapImage.getHeight() / DELTA_Y);
+            int x = (int) ((record.getX() - TOP_LEFT_X) * mapImage.getWidth() / DELTA_X);
+            int y = (int) ((TOP_LEFT_Y - record.getY()) * mapImage.getHeight() / DELTA_Y);
             g.fillOval(x - 5, y - 5, 10, 10);
         }
     }
 
     private void updateNumLabel() {
         numLabel.setText("Closest Stops: " + closest_num);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(GraphicViewer::new);
     }
 }

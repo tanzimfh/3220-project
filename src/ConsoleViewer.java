@@ -1,20 +1,27 @@
-/*This class will create a menu interface for the user to navigate
- * will prompt user to enter selection and based on selection
- * it will call a function that is related to the respective function
- */
 import java.util.Scanner;
-
+/**
+ * This class will create a menu interface for the user to navigate.
+ * Will prompt user to enter selection and based on selection.
+ * It will call a function that is related to the respective function.
+ */
 public class ConsoleViewer {
     private Scanner scanner; // Declare Scanner object
     private StopRecordList stopRecordList;
     private int closest_num = 10;
 
+    /**
+     * Constructor that initializes member variables and shows the menu.
+     */
     public ConsoleViewer() {
         scanner = new Scanner(System.in); // Initialize Scanner object
         stopRecordList = new StopRecordList(); // Initialize StopRecordList object
         displayMenu();
     }
 
+    /**
+     * Displays the menu and prompts the user for input.
+     * Calls the appropriate function based on the user's choice.
+     */
     public void displayMenu() {
         char choice = ' '; // Initialize choice
 

@@ -1,22 +1,25 @@
-/*this class will read the file that contains our data
- * and record each line as a record and add it to our array list
- */
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+/**
+ * This class reads the data file and store the bus stops in a list.
+ */
 public class StopRecordList implements StopRecordTemplate {
-    public ArrayList<StopRecord> recordList;
+    private ArrayList<StopRecord> recordList;
 
+    /**
+     * Constructor that initializes the list of bus stops and loads data from the file.
+     */
     public StopRecordList() {
         recordList = new ArrayList<>();
         loadRecords();
     }
 
-    public StopRecord get(int i) {
-        return recordList.get(i);
-    }
-
+    /**
+     * Reads the data file and stores the bus stops in the list.
+     * @return the number of bus stops read
+     */
     public int loadRecords() {
         try {
             BufferedReader br = new BufferedReader(new FileReader(FILE_NAME));
@@ -31,14 +34,24 @@ public class StopRecordList implements StopRecordTemplate {
         return recordList.size();
     }
 
+    /**
+     * Sorts the list of bus stops by distance from a given point.
+     * @param x the x-coordinate of the point
+     * @param y the y-coordinate of the point
+     */
     public void sortByDistance(double x, double y) {
         recordList.sort((a, b) -> {
             return Double.compare(
-                Math.pow(a.xCoord - x, 2) + Math.pow(a.yCoord - y, 2),
-                Math.pow(b.xCoord - x, 2) + Math.pow(b.yCoord - y, 2));
+                Math.pow(a.getX() - x, 2) + Math.pow(a.getY() - y, 2),
+                Math.pow(b.getX() - x, 2) + Math.pow(b.getY() - y, 2));
         });
     }
 
+    /**
+     * Returns the first n bus stops in the list.
+     * @param n the number of bus stops to return
+     * @return an array of the first n bus stops
+     */
     public StopRecord[] getFirst(int n) {
         n = Math.min(Math.max(n, 0), recordList.size());
         StopRecord[] records = new StopRecord[n];
